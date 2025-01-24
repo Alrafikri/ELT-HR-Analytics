@@ -1,0 +1,6 @@
+pandas
+sqlalchemy
+psycopg2
+psycopg2-binary
+dbt-core
+dbt-postgres>=1.8.0

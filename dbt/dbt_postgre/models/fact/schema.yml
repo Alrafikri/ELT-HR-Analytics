@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: fact_employee_performance
+    description: "employee performance table"
+    columns:
+      - name: performance_review_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null

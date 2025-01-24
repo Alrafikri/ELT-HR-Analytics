@@ -1,0 +1,10 @@
+test/
+venv/
+logs/
+data/
+
+*.ipynb
+*.log
+
+__pycache__/
+.DS_Store

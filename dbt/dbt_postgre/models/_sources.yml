@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: staging
+    database: dev  
+    tables:
+      - name: stg_dev_employee
+      - name: stg_dev_performance_rating

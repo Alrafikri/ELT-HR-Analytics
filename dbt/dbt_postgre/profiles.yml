@@ -1,0 +1,21 @@
+dbt_postgre:
+  outputs:
+    prod:
+      dbname: dev
+      host: 172.17.0.1
+      pass: pass2021!
+      port: 5433
+      threads: 1
+      type: postgres
+      user: dev_user
+      schema: public
+    dev:
+      dbname: dev
+      host: 172.17.0.1
+      pass: pass2021!
+      port: 5433
+      threads: 1
+      type: postgres
+      user: dev_user
+      schema: dev
+  target: prod
