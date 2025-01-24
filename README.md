@@ -18,6 +18,47 @@ This project performs an **ELT** (Extract, Load, Transform) process on HR analyt
 
 The data source for this project is available on Kaggle: [HR Analytics Dataset](https://www.kaggle.com/datasets/davidafolayan/hr-analytics?select=PerformanceRating.csv). The CSV files `employee.csv` and `performance_rating.csv` are used in this project.
 
+## Setup
+
+Follow these steps to set up and run the project:
+
+### 1. Set Up Apache Airflow
+
+To set up Apache Airflow, follow the official instructions for setting up Airflow with Docker Compose. You can find the full guide here:  
+[Apache Airflow Docker Compose Setup](https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html).
+
+### 2. Start Airflow with Docker Compose
+
+Once you have the Docker Compose configuration ready, run the following command to start Airflow in detached mode:
+
+```
+docker-compose up -d
+```
+
+This will download the required images, set up the containers, and start Airflow services in the background.
+
+### 3. Access Airflow UI
+
+Once the containers are up, navigate to [http://localhost:8080](http://localhost:8080) in your browser to access the Airflow web UI. You will be prompted to log in with the credentials specified in the `docker-compose.yml` file.
+
+### 4. Set Up Connection to PostgreSQL in Airflow
+
+To enable Airflow to connect to your PostgreSQL database, follow these steps:
+
+1. Go to the Airflow UI and click on the "Admin" tab in the top menu.
+2. Select "Connections" from the dropdown.
+3. Click the "Add a new record" button.
+4. In the "Conn ID" field, enter a name for the connection (e.g., `postgres_conn`).
+5. In the "Conn Type" dropdown, select `Postgres`.
+6. Fill in the required connection details (host, schema, login, password, port, etc.).
+7. Click "Save" to save the connection settings.
+
+### 5. Unpause the DAG
+
+In the Airflow UI, navigate to the **DAGs** page. Find the DAG with the name `postgres_elt_dag`. If the DAG is paused, click on the toggle switch to unpause it and start the ETL process.
+
+Once the DAG is unpaused, it will begin running according to the schedule or when manually triggered.
+
 ## Airflow DAGs
 
 This project includes three primary Airflow DAGs that automate the ETL process:
@@ -65,7 +106,7 @@ dbt_postgre:
       schema: dev
 ```
 
-This file is essential for connecting your DBT models to the PostgreSQL Data Warehouse. Additionally, a custom macro `get_custom_schema` is provided in the `macros/` directory to allow DBT to use a custom schema for prod configurations (target: prod).
+This file is essential for connecting your DBT models to the PostgreSQL Data Warehouse. Additionally, a custom macro `get_custom_schema` is provided in the `macros/` directory to allow DBT to use a custom schema for prod configurations (target: prod). You can find the full guide here: [DBT Custom Schema Guide](https://docs.getdbt.com/docs/build/custom-schemas#a-built-in-alternative-pattern-for-generating-schema-names)
 
 ```
 {% macro generate_schema_name(custom_schema_name, node) -%}
